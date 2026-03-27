@@ -1,33 +1,34 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
-
-
 public class PlayerController : MonoBehaviour
 {
-     float horizontal = 1.0f;
-  public InputAction LeftAction;
-  public InputAction MoveAction;
-  
+    float horizontal = 0.0f;
+    public InputAction LeftAction;
+       public InputAction MoveAction;
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+   {
+      MoveAction.Enable();  
+      //QualitySettings.vSyncCount = 0;
+      //Application.targetFrameRate = 10;
+   }
+    }
 
-   //Start is called before the first frame update
-  void Start()
-  {
-     MoveAction.Enable();   
-  }
- 
-  // Update is called once per frame
-void Update()
-{
-    Vector2 move = MoveAction.ReadValue<Vector2>();
-    Debug.Log(move);
+    // Update is called once per frame
+    void Update()
+    {
+     
 
-    Vector3 movement = new Vector3(move.x, move.y, 0f);
-    transform.position += movement * 5.1f * Time.deltaTime;
-    Debug.Log($"Horizontal: {move.x} | Vertical: {move.y}");
+     Vector2 move = MoveAction.ReadValue<Vector2>();
+     Debug.Log(move);
+     Vector2 position = (Vector2)transform.position + move * 5.1f * Time.deltaTime;
+     transform.position = position;
+   
+    }
 
 }
 
-}
